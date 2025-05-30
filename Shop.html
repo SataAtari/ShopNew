@@ -2,67 +2,176 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
-  <title>Магазин</title>
+  <title>Список товарів</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #f5f5f5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      background: #f0f2f5;
       margin: 0;
+      padding-top: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .product-card {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
       background: white;
-      padding: 30px;
       border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      max-width: 400px;
+      width: 400px;
+      max-width: 95%;
+      padding: 30px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       text-align: center;
+      transition: all 0.3s ease;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .product-card.expanded {
+      width: 700px; /* Розширений розмір */
+    }
+
+    .product-content {
+      flex: 1;
+      transition: all 0.3s ease;
     }
 
     .product-card img {
       max-width: 100%;
-      border-radius: 8px;
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
     .product-title {
-      margin: 20px 0 10px;
       font-size: 24px;
+      margin: 20px 0 10px;
       font-weight: bold;
-      color: #333;
     }
 
     .buy-button {
+      margin-top: 15px;
       background: #28a745;
       color: white;
       border: none;
-      padding: 15px 30px;
+      padding: 12px 25px;
       font-size: 16px;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
       transition: background 0.3s;
     }
 
-    .buy-button:hover {
-      background: #218838;
+    .product-card.expanded .buy-button {
+      background: #dc3545; /* червона кнопка при відкритті */
+    }
+
+    .chat-box {
+      width: 0;
+      opacity: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      transition: all 0.4s ease;
+      margin-left: 20px;
+      background: #e9f5ff;
+      border-left: 4px solid #007bff;
+      border-radius: 8px;
+      padding: 0;
+      text-align: left;
+      font-size: 15px;
+    }
+
+    .product-card.expanded .chat-box {
+      width: 240px;
+      opacity: 1;
+      padding: 15px;
+    }
+
+    .chat-box a {
+      display: inline-block;
+      margin-top: 10px;
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .chat-box a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .product-card {
+        flex-direction: column;
+        width: 90%;
+      }
+
+      .product-card.expanded {
+        width: 90%;
+      }
+
+      .chat-box {
+        width: 100% !important;
+        margin-left: 0;
+        margin-top: 20px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="product-card">
-    <img src="https://raw.githubusercontent.com/SataAtari/ShopNew/refs/heads/main/Tovar_1.png" alt="Товар">
-    <div class="product-title">Картина</div>
-    <button class="buy-button" onclick="openChat()">Купити</button>
-  </div>
 
-  <script>
-    function openChat() {
-      // Заміни URL на свій
-      window.open("https://t.me/твій_нікнейм", "_blank");
-    }
-  </script>
+<!-- Товар 1 -->
+<div class="product-card" id="product1">
+  <div class="product-content">
+    <img src="https://via.placeholder.com/350x250?text=Товар+1" alt="Товар 1">
+    <div class="product-title">Товар 1</div>
+    <button class="buy-button" onclick="toggleChat('product1')">Купити</button>
+  </div>
+  <div class="chat-box">
+    Щоб купити товар зв'яжіться з продавцем:<br>
+    <a href="https://t.me/nik1" target="_blank">Зв'язатись в Telegram</a>
+  </div>
+</div>
+
+<!-- Товар 2 -->
+<div class="product-card" id="product2">
+  <div class="product-content">
+    <img src="https://via.placeholder.com/350x250?text=Товар+2" alt="Товар 2">
+    <div class="product-title">Товар 2</div>
+    <button class="buy-button" onclick="toggleChat('product2')">Купити</button>
+  </div>
+  <div class="chat-box">
+    Щоб купити товар зв'яжіться з продавцем:<br>
+    <a href="https://t.me/nik2" target="_blank">Зв'язатись в Telegram</a>
+  </div>
+</div>
+
+<!-- Товар 3 -->
+<div class="product-card" id="product3">
+  <div class="product-content">
+    <img src="https://via.placeholder.com/350x250?text=Товар+3" alt="Товар 3">
+    <div class="product-title">Товар 3</div>
+    <button class="buy-button" onclick="toggleChat('product3')">Купити</button>
+  </div>
+  <div class="chat-box">
+    Щоб купити товар зв'яжіться з продавцем:<br>
+    <a href="https://t.me/nik3" target="_blank">Зв'язатись в Telegram</a>
+  </div>
+</div>
+
+<script>
+  function toggleChat(productId) {
+    document.querySelectorAll('.product-card').forEach(card => {
+      if (card.id === productId) {
+        card.classList.toggle('expanded');
+      } else {
+        card.classList.remove('expanded');
+      }
+    });
+  }
+</script>
+
 </body>
 </html>
