@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Галерея товарів</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 60px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .gallery-container {
+      position: relative;
+      width: 90%;
+      max-width: 600px;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      background: white;
+    }
+
+    .gallery-track {
+      display: flex;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-slide {
+      min-width: 100%;
+      box-sizing: border-box;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .gallery-slide img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .gallery-controls {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      width: 90%;
+      max-width: 600px;
+    }
+
+    .gallery-button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .gallery-button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Галерея товарів</h1>
+
+  <div class="gallery-container">
+    <div class="gallery-track" id="galleryTrack">
+      <div class="gallery-slide">
+        <img src="https://via.placeholder.com/600x400?text=Товар+1" alt="Товар 1">
+      </div>
+      <div class="gallery-slide">
+        <img src="https://via.placeholder.com/600x400?text=Товар+2" alt="Товар 2">
+      </div>
+      <div class="gallery-slide">
+        <img src="https://via.placeholder.com/600x400?text=Товар+3" alt="Товар 3">
+      </div>
+    </div>
+  </div>
+
+  <div class="gallery-controls">
+    <button class="gallery-button" onclick="prevSlide()">← Назад</button>
+    <button class="gallery-button" onclick="nextSlide()">Вперед →</button>
+  </div>
+
+  <script>
+    let currentSlide = 0;
+    const track = document.getElementById('galleryTrack');
+    const slides = document.querySelectorAll('.gallery-slide');
+
+    function updateSlidePosition() {
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slides.length;
+      updateSlidePosition();
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+      updateSlidePosition();
+    }
+  </script>
+
+
+<script>
+  function toggleChat(productId) {
+    document.querySelectorAll('.product-card').forEach(card => {
+      if (card.id === productId) {
+        card.classList.toggle('expanded');
+      } else {
+        card.classList.remove('expanded');
+      }
+    });
+  }
+</script>
+
+
+<!-- Блок характеристик -->
+<div style="margin: 50px auto; max-width: 800px; width: 100%; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+  <h2 style="text-align: center; margin-bottom: 20px;">Характеристики товару</h2>
+  <table style="width: 100%; border-collapse: collapse; font-size: 16px;">
+    <tbody>
+      <tr style="background: #f8f9fa;">
+        <td style="padding: 12px; font-weight: bold; border: 1px solid #dee2e6;">Розмір</td>
+        <td style="padding: 12px; border: 1px solid #dee2e6;">25 x 15 x 10 см</td>
+      </tr>
+      <tr>
+        <td style="padding: 12px; font-weight: bold; border: 1px solid #dee2e6;">Вага</td>
+        <td style="padding: 12px; border: 1px solid #dee2e6;">1.2 кг</td>
+      </tr>
+      <tr style="background: #f8f9fa;">
+        <td style="padding: 12px; font-weight: bold; border: 1px solid #dee2e6;">Матеріал</td>
+        <td style="padding: 12px; border: 1px solid #dee2e6;">Пластик + метал</td>
+      </tr>
+      <tr>
+        <td style="padding: 12px; font-weight: bold; border: 1px solid #dee2e6;">Комплектація</td>
+        <td style="padding: 12px; border: 1px solid #dee2e6;">Основний блок, зарядний кабель, інструкція</td>
+      </tr>
+      <tr style="background: #f8f9fa;">
+        <td style="padding: 12px; font-weight: bold; border: 1px solid #dee2e6;">Особливості</td>
+        <td style="padding: 12px; border: 1px solid #dee2e6;">Водозахист IP67, підтримка Bluetooth</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div style="margin: 50px auto; max-width: 800px; width: 100%; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+  
+  <!-- Форма замовлення -->
+  <h2 style="text-align: center; margin: 40px 0 20px;">Оформлення заявки</h2>
+  <form id="productOrderForm" style="max-width: 500px; margin: 0 auto;">
+    <label for="productType" style="display: block; margin-bottom: 10px; font-weight: bold;">Тип товару:</label>
+    <select id="productType" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; margin-bottom: 20px;">
+      <option value="">-- Оберіть тип --</option>
+      <option value="Тип 1">Тип 1</option>
+      <option value="Тип 2">Тип 2</option>
+      <option value="Тип 3">Тип 3</option>
+    </select>
+
+    <label for="userName" style="display: block; margin-bottom: 10px; font-weight: bold;">Ім’я покупця:</label>
+    <input type="text" id="userName" required placeholder="Введіть ваше ім’я" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; margin-bottom: 20px;">
+
+    <label for="phoneNumber" style="display: block; margin-bottom: 10px; font-weight: bold;">Номер телефону:</label>
+    <input type="tel" id="phoneNumber" required placeholder="Наприклад: 380XXXXXXXXX" pattern="[0-9]{10,15}" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc; margin-bottom: 20px;">
+
+    <div style="text-align: center;">
+      <button type="submit" style="background: #28a745; color: white; padding: 12px 25px; font-size: 16px; border: none; border-radius: 8px; cursor: pointer;">
+        Залишити заявку
+      </button>
+    </div>
+  </form>
+</div>
+
+<script>
+  document.getElementById("productOrderForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const type = document.getElementById("productType").value.trim();
+    const name = document.getElementById("userName").value.trim();
+    const phone = document.getElementById("phoneNumber").value.trim();
+
+    if (!type) {
+      alert("Будь ласка, оберіть тип товару.");
+      return;
+    }
+
+    if (!name) {
+      alert("Будь ласка, введіть ім’я.");
+      return;
+    }
+
+    if (!/^[0-9]{10,15}$/.test(phone)) {
+      alert("Будь ласка, введіть коректний номер телефону (тільки цифри, від 10 до 15).");
+      return;
+    }
+
+    alert("Заявка успішно заповнена (імітація відправки ✅)");
+    this.reset();
+  });
+</script>
+</body>
+</html>
